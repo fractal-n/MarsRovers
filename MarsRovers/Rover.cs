@@ -19,13 +19,11 @@ namespace MarsRovers
 
         public void Run(MarsMap map, string instructions)
         {
-            foreach(var action in instructions)
+            for (int index = 0; index < instructions.Length; index++)
             {
-                //Console.WriteLine(ShowStatus() + " ==== " + action);
-                
                 if (!IsOutOfMap(map))
                 {
-                    switch (action)
+                    switch (instructions[index])
                     {
                         case 'M':
                             MoveForward();
@@ -37,13 +35,13 @@ namespace MarsRovers
                             TurnRight();
                             break;
                         default:
-                            Console.WriteLine("unknown instruction " + action);
+                            Console.WriteLine($"unknown instruction {instructions[index]} at index {index}");
                             break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("oops!! rover falls off the cliff at " + action);
+                    Console.WriteLine($"rover falls off the cliff at position ({ShowStatus()}), index {index}");
                     return;
                 }
             }
@@ -56,7 +54,7 @@ namespace MarsRovers
 
         private bool IsOutOfMap(MarsMap map)
         {
-            return _positionX > map.CoorX || _positionY > map.CoorY;
+            return _positionX > map.CoorX || _positionY > map.CoorY || _positionX < 0 || _positionY < 0;
         }
 
         private void MoveForward()

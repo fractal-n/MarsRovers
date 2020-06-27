@@ -1,11 +1,12 @@
-﻿// Test case number 1
+﻿// First test case
+// Add comments using "//"
 6 6
 0 0 W
 MMMMM
-////////
+//////// --> This line to execute the instructions
 
 // Test case from the problem.
-// The second rover output in pdf is incorrect. It shoudld be (1 5 E) instead of (5 1 E)
+// The second rover output in pdf is incorrect. It should be (1 5 E) instead of (5 1 E)
 5 5
 1 2 N
 LMLMLMLMM

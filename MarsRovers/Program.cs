@@ -14,18 +14,18 @@ namespace MarsRovers
             string inputPath = Directory.GetCurrentDirectory() + @"\Input.txt";
             string[] inputFile = File.ReadAllLines(inputPath);
 
-            List<string> testCaseList = new List<string>();
+            List<string> scenarioList = new List<string>();
             foreach (var line in inputFile)
             {
                 if (line.StartsWith("//"))
                 {
-                    // Comment can start with "//" as well
+                    // You can use "//" for comments as well
                     Console.WriteLine(line);
                     
-                    if (testCaseList.Count > 0)
+                    if (scenarioList.Count > 0)
                     {
-                        ParseAndRunTestCase(testCaseList.ToArray());
-                        testCaseList.Clear();
+                        ParseAndRunScenario(scenarioList.ToArray());
+                        scenarioList.Clear();
                         Console.WriteLine();
                     }
                 }
@@ -33,7 +33,7 @@ namespace MarsRovers
                 {
                     if (!String.IsNullOrEmpty(line))
                     {
-                        testCaseList.Add(line);
+                        scenarioList.Add(line);
                     }
                 }
             }
@@ -42,15 +42,15 @@ namespace MarsRovers
             Console.WriteLine("done!!");
         }
 
-        static void ParseAndRunTestCase(string[] testCase)
+        static void ParseAndRunScenario(string[] scenario)
         {
-            string map = testCase[0];
+            string map = scenario[0];
             List<string> roverList = new List<string>();
-            for (int index = 1; index < testCase.Length; index++)
+            for (int index = 1; index < scenario.Length; index++)
             {
-                roverList.Add(testCase[index]);
+                roverList.Add(scenario[index]);
             }
-            TestCase newCase = new TestCase(map, roverList.ToArray());
+            Scenario newCase = new Scenario(map, roverList.ToArray());
             newCase.Run();
         }
     }

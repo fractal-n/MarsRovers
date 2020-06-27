@@ -4,20 +4,21 @@ using System.Text;
 
 namespace MarsRovers
 {
-    public class TestCase
+    public class Scenario
     {
         private string[] _map;
         private List<Tuple<string, string>> _roverList;
 
-        public TestCase(string map, string[] rovers)
+        public Scenario(string map, string[] rovers)
         {
             _map = map.Split(' ');
             _roverList = new List<Tuple<string, string>>();
             GetRoverList(rovers);
         }
 
-        public void Run()
+        public string Run()
         {
+            string result = "";
             MarsMap map = new MarsMap(int.Parse(_map[0]), int.Parse(_map[1]));
             foreach (var roverInput in _roverList)
             {
@@ -25,8 +26,10 @@ namespace MarsRovers
                 string roverInstructions = roverInput.Item2;
                 Rover rover = new Rover(int.Parse(roverPosition[0]), int.Parse(roverPosition[1]), roverPosition[2]);
                 rover.Run(map, roverInstructions);
-                Console.WriteLine(rover.ShowStatus());
+                result += rover.ShowStatus() + Environment.NewLine;
             }
+            Console.WriteLine(result);
+            return result;
         }
 
         private void GetRoverList(string[] rovers)
