@@ -55,6 +55,10 @@ MMRMMRMRRM
 
 ## Solution
 
+### Pattern
+
+This solution use Composition with Dependency Injection patterns in Object Oriented programming. I choose this pattern to reduce tight coupling in the system. It allows easy testing and extending.
+
 ### Design
 
 There are 2 main objects in this problem, Map and Rover.
@@ -62,7 +66,7 @@ There are 2 main objects in this problem, Map and Rover.
 - The Map class is the landscape for rover to run upon.
 - Rover class represent the rover itself. It can perform actions based on the given instruction. It can also report its current location and alert user if it went over the map boundary.
 - Scenario is the driver for these 2 objects. It parse input and coordiates the actions between the objects.
-- Program is a mechanism to read input, create scenarios, and execute each of them.
+- Program is a mechanism to process input, create instances, and execute each of them.
 
 ### How to run
 
@@ -87,15 +91,12 @@ Create a new scenario with this method template.
 
 ```c#
 [TestMethod]
-public void MyTest_Scenario4_MultipleRovers_GoRandom()
+public void GivenTest_GoRandom1()
 {
-    string map = "10 10";
-    string[] rovers = {
-        "0 0 N", "MMMRMMMLMM",
-        "5 5 S", "LMMLMMLMMLMM"
-    };
-    Scenario scenario = new Scenario(map, rovers);
-    string result = scenario.Run();
-    Assert.AreEqual(result.Trim(), "3 5 N\r\n5 5 S");
+    MarsMap marsMap = new MarsMap(5, 5);
+    Rover rover = new Rover(1, 2, "N");
+    string roverInstructions = "LMLMLMLMM";
+    Scenario scenario = new Scenario(marsMap, rover, roverInstructions);
+    Assert.AreEqual(scenario.Run(), "1 3 N");
 }
 ```

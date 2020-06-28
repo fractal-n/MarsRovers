@@ -45,13 +45,31 @@ namespace MarsRovers
         static void ParseAndRunScenario(string[] scenario)
         {
             string map = scenario[0];
+            MarsMap marsMap = new MarsMap(map[0], map[1]);
+
             List<string> roverList = new List<string>();
             for (int index = 1; index < scenario.Length; index++)
             {
                 roverList.Add(scenario[index]);
             }
-            Scenario newCase = new Scenario(map, roverList.ToArray());
-            newCase.Run();
+
+            RunRovers(marsMap, roverList.ToArray());
+        }
+
+        static void RunRovers(MarsMap marsMap, string[] rovers)
+        {
+            for (int index = 0; index < rovers.Length; index++)
+            {
+                if (!String.IsNullOrEmpty(rovers[index]) && (index % 2 == 0))
+                {
+                    string[] location = rovers[index].Split(' ');
+                    string instructions = rovers[index + 1];    // should not be out of bound here if input is right
+
+                    Rover rover = new Rover(int.Parse(location[0]), int.Parse(location[1]), location[2]);
+                    Scenario scenario = new Scenario(marsMap, rover, instructions);
+                    scenario.Run();
+                }
+            }
         }
     }
 }

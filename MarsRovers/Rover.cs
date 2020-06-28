@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MarsRovers.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MarsRovers
 {
-    public class Rover
+    public class Rover : IRover
     {
         private int _positionX = 0;
         private int _positionY = 0;
@@ -17,7 +18,7 @@ namespace MarsRovers
             _facing = facing;
         }
 
-        public void Run(MarsMap map, string instructions)
+        public void Run(IMarsMap map, string instructions)
         {
             for (int index = 0; index < instructions.Length; index++)
             {
@@ -52,7 +53,7 @@ namespace MarsRovers
             return $"{_positionX} {_positionY} {_facing}";
         }
 
-        private bool IsOutOfMap(MarsMap map)
+        private bool IsOutOfMap(IMarsMap map)
         {
             return _positionX > map.CoorX || _positionY > map.CoorY || _positionX < 0 || _positionY < 0;
         }
